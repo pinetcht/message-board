@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+.postBox {
+  background-color:rgb(246, 247, 241);
+  border-color: black;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px gainsboro;
+  margin: 10px;
+  text-align: start;
+  padding: 10px;
+  flex: auto;
+}

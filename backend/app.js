@@ -7,7 +7,7 @@ const port = 5000;
 app.use(express.json());
 
 const db = require("./firebase");
-const { collection, getDocs, updateDoc, doc, addDoc } = require("firebase/firestore");
+const { collection, getDocs, updateDoc, doc, addDoc, deleteDoc } = require("firebase/firestore");
 
 const cors = require("cors");
 app.use(cors());
@@ -47,11 +47,43 @@ app.get("/post", async (req, res) => {
             })
         })
 
-
-        res.status(200).json({message: "Successfully fetched post from firebase"});
+        res.status(200).json(ret);
     } catch(e) {
         res.status(400).json({error: `Error fetching post with ${e.message} error`})
     }
 
 })
 
+// update post
+app.put("/post/:id", async (req, res) => {
+    try {
+
+        const id = req.params.id;
+        const newMessage = req.body.message;
+        
+        await updateDoc(doc(db, "post", id), {
+            message: newMessage,
+        });
+        
+        res.status(200).json({ message: "edit post success" });
+    } catch(e) {
+        res.status(400).json({error: `Error fetching post with ${e.message} error`})
+    }
+
+})
+
+
+// delete post
+app.delete("/post/:id", async (req, res) => {
+    try {
+
+        const id = req.params.id;
+
+        await deleteDoc(doc(db, "post", id));
+        
+        res.status(200).json({ message: "Delete post success" });
+    } catch(e) {
+        res.status(400).json({error: `Error fetching post with ${e.message} error`})
+    }
+
+})
