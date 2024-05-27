@@ -1,8 +1,14 @@
-// import require("dotenv").config()
+
+require("dotenv").config();
+
 const express = require("express");
-const app = express
+const app = express();
 const port = 5000;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-})
-app.request(express.json());
+app.use(express.json());
+
+const db = require("./firebase");
+const { collection, getDocs, updateDoc, doc, addDoc } = require("firebase/firestore");
+
+const cors = require("cors");
+app.use(cors());
+
