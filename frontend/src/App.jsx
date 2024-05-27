@@ -41,26 +41,21 @@ function App() {
   };
 
   const handleEdit = async (e, id, newMessage) => {
-
-    try{
-
-      console.log(
-        "new message", newMessage
-      )
+    try {
+      console.log("new message", newMessage);
       e.preventDefault();
-      console.log("handle edit", id)
-  
+      console.log("handle edit", id);
+
       const response = await axios.put(`http://localhost:5000/post/${id}`, {
         message: newMessage,
       });
       console.log(response);
-      
-    fetchData();
-    setEditPopup(false);
-    } catch(e) {
-      console.error("update error", e)
+
+      fetchData();
+      setEditPopup(false);
+    } catch (e) {
+      console.error("update error", e);
     }
-    
   };
 
   const handleDelete = async (e, id) => {
@@ -79,19 +74,22 @@ function App() {
         <label>Username:&nbsp;</label>
         <input
           type="text"
-          value={username}
+          defaultValue={username}
           onChange={(e) => setUsername(e.target.value)}
           id="form"
         ></input>
         <br></br>
         <br></br>
-        <label id="form">Message: &nbsp;</label>
-        <textarea
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={{ height: "100px" }}
-        ></textarea>
+        <div className="formfield-new">
+          <label id="form">Message: &nbsp;</label>
+          <textarea
+            type="text"
+            defaultValue={message}
+            onChange={(e) => setMessage(e.target.value)}
+            style={{ height: "100px" }}
+          ></textarea>
+        </div>
+
         <br></br>
         <button type="submit">submit</button>
       </form>
@@ -123,15 +121,22 @@ function App() {
               <>
                 <div>
                   <h2>Edit message</h2>
-                  <form onSubmit={(e) => {handleEdit(e, editPostIndex, editedMessage)}}>
+                  <form
+                    onSubmit={(e) => {
+                      handleEdit(e, editPostIndex, editedMessage);
+                    }}
+                  >
                     <h4>User: {post.username}</h4>
-                    <label id="form">Message: &nbsp;</label>
-                    <textarea
-                      type="text"
-                      defaultValue={post.message}
-                      onChange={(e) => setEditedMessage(e.target.value)}
-                      style={{ height: "100px" }}
-                    ></textarea>
+                    <div className="formfield-edit">
+                      <label id="form">Message: &nbsp;</label>
+                      <textarea
+                        type="text"
+                        defaultValue={post.message}
+                        onChange={(e) => setEditedMessage(e.target.value)}
+                        style={{ height: "100px" }}
+                      ></textarea>
+                    </div>
+
                     <br></br>
                     <button type="submit">submit edited message</button>
                   </form>

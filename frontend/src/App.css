@@ -48,6 +48,25 @@
   box-shadow: 10px 10px 5px gainsboro;
   margin: 10px;
   text-align: start;
-  padding: 10px;
+  padding: 20px;
   flex: auto;
+}
+
+
+
+.formfield-new {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+}
+
+.formfield-edit {
+  display: flex;
+  justify-content: start;
+  align-items: top;
+}
+
+h2 {
+  padding: 5px;
+  border: 0px;
 }
